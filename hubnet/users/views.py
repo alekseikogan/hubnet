@@ -1,9 +1,12 @@
-from django.views.generic import CreateView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .forms import CreationForm
 
 
 class SignUp(CreateView):
     form_class = CreationForm
     template_name = 'users/signup.html'
-    succsess_url = reverse_lazy('posts:index')
+
+    def get_success_url(self):
+        return reverse_lazy('users:login')
