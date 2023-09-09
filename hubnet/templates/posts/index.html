@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-  {{ title }}
+  Последние обновления
 {% endblock %}
 {% block content %}
 <!-- класс py-5 создает отступы сверху и снизу блока -->
@@ -9,7 +9,7 @@
   <h1>Последние обновления на сайте</h1>
 
 <article>
-  {% for post in posts %}
+  {% for post in page_obj  %}
   <ul>
     <li>
       Автор: {{ post.author.get_full_name }}
@@ -25,5 +25,6 @@
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %} 
 </article>
-  </div>  
+  {% include 'posts/includes/paginator.html' %}
+  </div>
 {% endblock %}
