@@ -37,6 +37,13 @@
       <p>
         {{ current_post.text }}
       </p>
+{# Если пользователь это автор - дай отредачить пост#}  
+{% if current_post.author.id == request.user.id %}
+<a class="btn btn-primary"
+href="{% url 'posts:post_edit' current_post.id %}"> 
+  Редактировать запись
+</a>
+{% endif %}
     </article>
   </div>
 </div> 
