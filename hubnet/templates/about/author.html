@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title%}
+  Об авторе
+{% endblock %} 
+
+{% block content %}
+    <p></p>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <h1>Алексей Коган — создатель сайта Hubnet</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          
+          <p> Решил сделать сайт на скорую руку, чтобы вспомнить свой навыки программирования.
+          </p>
+          <b>Здесь могла бы быть ваша реклама (150р/сутки)</b>
+          <p>  
+        </p>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {% load static %}
+        <img src="{% static 'img/me.png' %}" width="350" height="350" class="d-inline-block align-top" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2>Мой кривой монтаж на Youtube-канале</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+          <p><a href="https://youtu.be/MB_9mw0CzrY">Apex.hehe</a></p>
+          <p><a href="https://youtu.be/HoT0inhsj6g">CRYPTO EXE at 5.15 pm</a></p>
+          <p><a href="https://youtu.be/HoT0inhsj6g">Kawasaki Ninja 650</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2>Контакты для связи</h2>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p>Телефон: +7 (965) 151-51-**</p>
+          <p>Почта: <a href="mailto: alekseikogan@yandex.ru">alekseikogan@yandex.ru</a></p>
+          <p>Телеграм: @alekseikogan</p>
+        </div>
+      </div>
+    </div>
+{% endblock %} 

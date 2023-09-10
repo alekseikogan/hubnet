@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title%}
+  Пост {{ current_post.text|truncatechars:30 }}
+{% endblock %} 
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <aside class="col-12 col-md-3">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Дата публикации: {{ current_post.pub_date|date:"j E Y" }}
+        </li>
+        {% if current_post.group %}
+          <li class="list-group-item">
+            Группа: {{ current_post.group.title }}
+            <a href="{% url 'posts:group_list' current_post.group.slug %}">
+              Все записи группы
+            </a>
+          </li>
+        {% endif %}
+        <li class="list-group-item">
+          Автор: {{ current_post.author }}
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Всего постов автора:  <span >{{ current_post.author.posts.count }}</span>
+        </li>
+        <li class="list-group-item">
+          <a href="{% url 'posts:profile' current_post.author.username %}">
+            Все посты пользователя
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <article class="col-12 col-md-9">
+        <img class="card-img my-2" src="{{ im.url }}">
+      <p>
+        {{ current_post.text }}
+      </p>
+    </article>
+  </div>
+</div> 
+{% endblock %} 
