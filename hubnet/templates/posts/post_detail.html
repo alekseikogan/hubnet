@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load user_filters %}
 {% load thumbnail %}
 {% block title%}
   Пост {{ current_post.text|truncatechars:30 }}
@@ -47,7 +48,9 @@ href="{% url 'posts:post_edit' current_post.id %}">
   Редактировать запись
 </a>
 {% endif %}
+{% include 'posts/includes/comments.html' %}
     </article>
   </div>
-</div> 
+</div>
+
 {% endblock %} 

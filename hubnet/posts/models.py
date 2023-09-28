@@ -48,3 +48,46 @@ class Post(models.Model):
 
     def __str__(self):
         return self.text[:15]
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name='Комментируемый пост')
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name='Автор',)
+    text = models.TextField(
+        verbose_name='Текст комментария')
+    created = models.DateTimeField(
+        verbose_name='Дата комментария',
+        auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = 'Комментарии'
+        verbose_name_plural = "Комментарии"
+
+    def __str__(self):
+        return self.text[:15]
+
+
+class Follow(models.Model):
+    user = models.ForeignKey(
+        User,
+        related_name='follower',
+        on_delete=models.CASCADE,
+        verbose_name='Подписчик')
+    author = models.ForeignKey(
+        User,
+        related_name='following',
+        on_delete=models.CASCADE,
+        verbose_name='Блогер')
+
+    class Meta:
+        verbose_name = 'Подписки'
+        verbose_name_plural = 'Подписки'
