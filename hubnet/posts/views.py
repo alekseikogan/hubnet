@@ -56,7 +56,8 @@ def profile(request, username):
 @login_required
 def post_create(request):
     form = PostForm(
-        request.POST or None)
+        request.POST or None,
+        files=request.FILES or None)
     if form.is_valid():
         form.save(commit=False).author_id = request.user.pk
         form.save()
@@ -73,6 +74,7 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id, author=request.user)
     form = PostForm(
         request.POST or None,
+        files=request.FILES or None,
         instance=post)
     if request.user != post.author:
         return redirect('post:profile', username=request.user)

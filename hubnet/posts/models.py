@@ -13,12 +13,18 @@ class Group(models.Model):
         verbose_name='Адрес')
     description = models.TextField(verbose_name='Описание')
 
+    class Meta:
+        ordering = ('title',)
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
     def __str__(self):
         return self.title
 
 
 class Post(models.Model):
-    text = models.TextField(verbose_name='Текст')
+    text = models.TextField(
+        verbose_name='Текст')
     group = models.ForeignKey(
         Group,
         blank=True,
@@ -29,6 +35,16 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='posts')
+    image = models.ImageField(
+        verbose_name='Картинка',
+        upload_to='posts/',
+        blank=True
+    )
+
+    class Meta:
+        ordering = ('-pub_date',)
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:15]

@@ -38,14 +38,13 @@
           {% endif %}
 
           {# если можно редактировать - post_edit #}
-          <form method="post"
+          <form method="post" enctype="multipart/form-data"
             action=
             {% if is_edit %}
               "{% url 'posts:post_edit' post.id %}">
             {% else %}
             {# если нельзя редактировать - post_create #}
-              "{% url 'posts:post_create' %}"
-            enctype="multipart/form-data" >
+              "{% url 'posts:post_create' %}" >
             {% endif %}
             {% csrf_token %}
 
