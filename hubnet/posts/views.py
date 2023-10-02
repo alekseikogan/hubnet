@@ -1,18 +1,19 @@
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
-from .models import Group, Post, User, Follow
-from .forms import PostForm, CommentForm
+from hubnet.posts.utils import paginator_context
+
+from .forms import CommentForm, PostForm
+from .models import Follow, Group, Post, User
 
 
 @cache_page(20)
 def index(request):
-    posts = Post.objects.order_by('-pub_date')
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_context(
+        Post.objects.order_by('-pub_date'),
+        request)
     context = {
         'page_obj': page_obj,
     }
@@ -47,10 +48,9 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     username = user.username
     count_posts = user.posts.count()
-    posts = user.posts.select_related('group')
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_context(
+        user.posts.select_related('group'),
+        request)
     context = {
         'username': username,
         'count_posts': count_posts,
@@ -111,9 +111,10 @@ def follow_index(request):
     posts = Post.objects.filter(
         author__in=request.user.follower.values_list('author')
     )
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_context(
+        posts,
+        request
+    )
     context = {
         'posts': posts,
         'page_obj': page_obj,
@@ -126,8 +127,8 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     if request.user != author:
         Follow.objects.get_or_create(
-            user = request.user,
-            author = author
+            user=request.user,
+            author=author
         )
     return redirect('posts:profile', username=username)
 
